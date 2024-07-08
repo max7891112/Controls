@@ -1,0 +1,27 @@
+.current-task_container {
+    width: 40%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 1px solid black;
+    position: relative;
+    margin-top: 20px;
+}
+.current-task_title {
+    font-size: 30px;
+    margin-top: 10px;
+}
+.current-task_description {
+    font-size: 16px;
+    margin-top: 10px;
+}
+.current-task_edit-container{
+    display: flex;
+    gap: 10px;
+    position: absolute!important;
+    top: 5%;
+    right: 0%;
+
+}

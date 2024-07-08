@@ -1,0 +1,18 @@
+.task_container {
+    width: 40%;
+    height: 20%;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.task_box {
+    display: flex;
+    flex-direction: column;
+}
+
+.task_button-container {
+    margin: 10px 0 0 auto 
+}
