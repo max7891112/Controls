@@ -6,21 +6,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
-export const NewTask: React.FC<{
-  cancelTask: (id: string) => void;
-  finishAddTask: (
-    title: string,
-    description: string,
-    long: string,
-    editMode: boolean,
-    id: string
-  ) => void;
-  title?: string;
-  description?: string;
-  long?: string;
-  editMode?: boolean;
-  id?: string;
-}> = ({
+import { NewTaskWindowPropsType } from "../../interface/interface";
+
+export const NewTaskWindow: NewTaskWindowPropsType = ({
   cancelTask,
   finishAddTask,
   title = "",
@@ -29,21 +17,18 @@ export const NewTask: React.FC<{
   editMode = false,
   id = "",
 }) => {
-  const [taskTitle, setTaskTitle] = useState(editMode ? title : "");
-  const [taskDescription, setTaskDescription] = useState(
-    editMode ? description : ""
-  );
-  const [taskLong, setTaskLong] = useState(editMode ? long : "");
-  const onChangeHandlerTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTaskTitle(event.currentTarget.value);
-  };
-  const onChangeHandlerDescription = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setTaskDescription(event.currentTarget.value);
-  };
-  const onChangeHandlerLong = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTaskLong(event.currentTarget.value);
+  const [state, setState] = useState({
+    title: editMode ? title : "",
+    description: editMode ? description : "",
+    long: editMode ? long : "",
+  });
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
   return (
     <>
@@ -58,24 +43,24 @@ export const NewTask: React.FC<{
           autoComplete="off"
         >
           <TextField
-            value={taskTitle}
-            onChange={onChangeHandlerTitle}
-            id="task-title"
+            value={state.title}
+            onChange={handleInputChange}
+            name="title"
             label="Write your every day task"
             variant="standard"
             autoFocus
           />
           <TextField
-            value={taskDescription}
-            onChange={onChangeHandlerDescription}
-            id="task-description"
+            value={state.description}
+            onChange={handleInputChange}
+            name="description"
             label="Describe your task"
             variant="standard"
           />
           <TextField
-            value={taskLong}
-            onChange={onChangeHandlerLong}
-            id="task-long"
+            value={state.long}
+            onChange={handleInputChange}
+            name="long"
             label="How long will it take"
             variant="standard"
           />
@@ -92,7 +77,13 @@ export const NewTask: React.FC<{
             variant="contained"
             endIcon={<SendIcon />}
             onClick={() =>
-              finishAddTask(taskTitle, taskDescription, taskLong, editMode, id)
+              finishAddTask(
+                state.title,
+                state.description,
+                state.long,
+                editMode,
+                id
+              )
             }
           >
             Add

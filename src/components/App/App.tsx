@@ -1,23 +1,13 @@
 import "./App.scss";
 import { useState } from "react";
 import { Avatar } from "@mui/material";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
-import { NewTask } from "./newTask";
-import { Task } from "./Task";
 import { v1 } from "uuid";
-
-type taskType = {
-  id: string;
-  title: string;
-  description: string;
-  long: string;
-  editMode: boolean;
-};
-
+import { TaskType } from "../../interface/interface";
+import { TasksList } from "../App/TasksList";
+import { NewTask } from "./NewTask";
 function App() {
   const [isAddTask, setIsAddTask] = useState(false);
-  const [tasks, setTasks] = useState<taskType[]>([
+  const [tasks, setTasks] = useState<TaskType[]>([
     {
       id: v1(),
       title: "Sport",
@@ -51,7 +41,6 @@ function App() {
       setIsAddTask(false);
     }
   };
-
   const handleClickCancelTask = (id: string) => {
     setIsAddTask(false);
     setTasks(
@@ -59,7 +48,7 @@ function App() {
         if (task.id === id) {
           return { ...task, editMode: false };
         }
-        return { ...task };
+        return task;
       })
     );
   };
@@ -92,45 +81,19 @@ function App() {
         <div className="main">
           <div className="main-container">
             <h2 className="main-today">Today</h2>
-            {tasks.map((task) => {
-              return task.editMode ? (
-                <NewTask
-                  cancelTask={handleClickCancelTask}
-                  finishAddTask={handleClickFinishAddTask}
-                  title={task.title}
-                  description={task.description}
-                  long={task.long}
-                  editMode={task.editMode}
-                  id={task.id}
-                />
-              ) : (
-                <Task
-                  key={task.id}
-                  id={task.id}
-                  title={task.title}
-                  description={task.description}
-                  long={task.long}
-                  handleClickEditTask={handleClickEditTask}
-                  handleClickDeleteTask={handleClickDeleteTask}
-                />
-              );
-            })}
-            {isAddTask ? (
-              <NewTask
-                cancelTask={handleClickCancelTask}
-                finishAddTask={handleClickFinishAddTask}
-              />
-            ) : (
-              <div
-                className="main-new-task-container"
-                onClick={handleClickAddTask}
-              >
-                <Fab color="primary" aria-label="add" size="small">
-                  <AddIcon />
-                </Fab>
-                <p>Add new task</p>
-              </div>
-            )}
+            <TasksList
+              tasks={tasks}
+              cancelTask={handleClickCancelTask}
+              finishAddTask={handleClickFinishAddTask}
+              editTask={handleClickEditTask}
+              deleteTask={handleClickDeleteTask}
+            />
+            <NewTask
+              isAddTask={isAddTask}
+              cancelTask={handleClickAddTask}
+              finishAddTask={handleClickFinishAddTask}
+              addTask={handleClickAddTask}
+            />
           </div>
         </div>
         <div className="footer"></div>
