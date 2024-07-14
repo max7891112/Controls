@@ -1,5 +1,5 @@
 import "./newTask.scss";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -7,28 +7,39 @@ import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import { NewTaskWindowPropsType } from "../../interface/interface";
+import { changeLong, reverseChangeLong } from "../../utils/transformDataLong";
 
 export const NewTaskWindow: NewTaskWindowPropsType = ({
   cancelTask,
   finishAddTask,
   title = "",
   description = "",
-  long = "",
+  long = [],
   editMode = false,
   id = "",
 }) => {
   const [state, setState] = useState({
     title: editMode ? title : "",
     description: editMode ? description : "",
-    long: editMode ? long : "",
+    long: editMode ? long : [],
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    if (name === "long") {
+      setState((prevState) => ({
+        ...prevState,
+        [name]: changeLong(value),
+        // .split(":")
+        // .map((item) => parseInt(item))
+        // .slice(0, 2),
+      }));
+    } else {
+      setState((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
   return (
     <>
@@ -58,13 +69,14 @@ export const NewTaskWindow: NewTaskWindowPropsType = ({
             variant="standard"
           />
           <TextField
-            value={state.long}
+            value={reverseChangeLong(state.long)}
             onChange={handleInputChange}
             name="long"
             label="How long will it take"
             variant="standard"
           />
         </Box>
+
         <Stack direction="row" spacing={2} className="task_button-container">
           <Button
             variant="outlined"

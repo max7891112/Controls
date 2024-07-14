@@ -2,7 +2,7 @@ export type TaskType = {
   id: string;
   title: string;
   description: string;
-  long: string;
+  long: boolean[];
   editMode: boolean;
 };
 
@@ -11,13 +11,13 @@ export type NewTaskWindowPropsType = React.FC<{
   finishAddTask: (
     title: string,
     description: string,
-    long: string,
+    long: boolean[],
     editMode: boolean,
     id: string
   ) => void;
   title?: string;
   description?: string;
-  long?: string;
+  long?: boolean[];
   editMode?: boolean;
   id?: string;
 }>;
@@ -26,9 +26,10 @@ export type TaskPropsType = React.FC<{
   id: string;
   title: string;
   description: string;
-  long: string;
+  long: boolean[];
   handleClickEditTask: (id: string) => void;
   handleClickDeleteTask: (id: string) => void;
+  completeCheck: (id: string, checkboxIndex: number) => void;
 }>;
 
 export type EditButtonsPropsType = React.FC<{
@@ -47,12 +48,13 @@ export type TaskListPropsType = React.FC<{
   finishAddTask: (
     title: string,
     description: string,
-    long: string,
+    long: boolean[],
     editMode: boolean,
     id: string
   ) => void;
   editTask: (id: string) => void;
   deleteTask: (id: string) => void;
+  completeCheck: (id: string, checkboxIndex: number) => void;
 }>;
 
 export type NewTaskPropsType = React.FC<{
@@ -61,7 +63,7 @@ export type NewTaskPropsType = React.FC<{
   finishAddTask: (
     title: string,
     description: string,
-    long: string,
+    long: boolean[],
     editMode?: boolean,
     id?: string
   ) => void;
@@ -69,5 +71,9 @@ export type NewTaskPropsType = React.FC<{
 }>;
 
 export type CheckboxListPropsType = React.FC<{
-  checkboxes: number[];
+  long: boolean[];
+  completeCheck: (id: string, checkboxIndex: number) => void;
+  id: string;
 }>;
+
+export type PercantageType = (tasks: TaskType[]) => number;

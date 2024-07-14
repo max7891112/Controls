@@ -1,18 +1,21 @@
 import { TaskListPropsType } from "../../interface/interface";
 import { Task } from "../Task/Task";
 import { NewTaskWindow } from "../NewTaskWindow/NewTaskWindow";
+
 export const TasksList: TaskListPropsType = ({
   tasks,
   cancelTask,
   finishAddTask,
   editTask,
   deleteTask,
+  completeCheck,
 }) => {
   return (
     <>
       {tasks.map((task) => {
         return task.editMode ? (
           <NewTaskWindow
+            key={task.id}
             cancelTask={cancelTask}
             finishAddTask={finishAddTask}
             title={task.title}
@@ -30,6 +33,7 @@ export const TasksList: TaskListPropsType = ({
             long={task.long}
             handleClickEditTask={editTask}
             handleClickDeleteTask={deleteTask}
+            completeCheck={completeCheck}
           />
         );
       })}
