@@ -56,4 +56,34 @@
 .footer {
   flex: 0 0 auto;
   margin-bottom: 70px;
+  
+}
+
+.main-svg{
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: 150px;
+  right: 5%;
+  fill: #1976d2;
+  cursor: pointer;
+  transition: all .3s ease;
+  &:hover{
+    fill: #1565c0;
+    right: 4%;
+  }
+}
+
+.error{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 200px;
+  font-size: 24px;
+  p{
+    
+    color: rgb(9, 122, 122);
+    margin: 20px 0;
+  }
 }

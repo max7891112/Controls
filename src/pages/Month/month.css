@@ -1,0 +1,51 @@
+.month {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(250, 245, 239);
+    overflow-y: auto;
+    padding-top: 50px;
+    font-size: 26px;
+}
+.month_container {
+    display: grid;
+    margin-top: 25px;
+    width: 90%;
+    height: fit-content;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(auto-fill, 1fr);
+    padding-bottom: 50px;
+    grid-row-gap: 10px;
+}
+
+.month_item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.month_day {
+    padding: 10px 0;
+}
+.month_weekday {
+    padding-bottom: 10px;
+}
+
+.month-svg{
+    width: 70px;
+  height: 70px;
+  position: absolute;
+  top: 150px;
+  left: 4%;
+  fill: #1976d2;
+  cursor: pointer;
+  transition: all .3s ease;
+  rotate: 180deg;
+}
+.month-svg:hover{
+    fill: #1565c0;
+    left: 3%;
+  }
