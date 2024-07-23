@@ -8,10 +8,11 @@ import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import { NewTaskWindowPropsType } from "../../interface/interface";
 import { changeLong, reverseChangeLong } from "../../utils/transformDataLong";
+import { useAppDispatch } from "../../providers/store/hooks";
+import { cancelTask, finishAddTask } from "../../providers/store/controlSlice";
+import { removeAddTask } from "../../providers/store/controlAddTaskSlice";
 
 export const NewTaskWindow: NewTaskWindowPropsType = ({
-  cancelTask,
-  finishAddTask,
   title = "",
   description = "",
   long = [],
@@ -24,15 +25,14 @@ export const NewTaskWindow: NewTaskWindowPropsType = ({
     long: editMode ? long : [],
   });
 
+  const dispatch = useAppDispatch();
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "long") {
       setState((prevState) => ({
         ...prevState,
         [name]: changeLong(value),
-        // .split(":")
-        // .map((item) => parseInt(item))
-        // .slice(0, 2),
       }));
     } else {
       setState((prevState) => ({
@@ -81,22 +81,21 @@ export const NewTaskWindow: NewTaskWindowPropsType = ({
           <Button
             variant="outlined"
             startIcon={<DeleteIcon />}
-            onClick={() => cancelTask(id)}
+            onClick={() => {
+              dispatch(removeAddTask());
+
+              dispatch(cancelTask({ id }));
+            }}
           >
             Cancel
           </Button>
           <Button
             variant="contained"
             endIcon={<SendIcon />}
-            onClick={() =>
-              finishAddTask(
-                state.title,
-                state.description,
-                state.long,
-                editMode,
-                id
-              )
-            }
+            onClick={() => {
+              dispatch(finishAddTask({ ...state, editMode, id }));
+              dispatch(removeAddTask());
+            }}
           >
             Add
           </Button>

@@ -3,19 +3,24 @@ import Fab from "@mui/material/Fab";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { EditButtonsPropsType } from "../../interface/interface";
+import { useAppDispatch } from "../../providers/store/hooks";
+import { deleteTask } from "../../providers/store/controlSlice";
+import { editTask } from "../../providers/store/controlSlice";
+import { removeAddTask } from "../../providers/store/controlAddTaskSlice";
 
-export const EditButtons: EditButtonsPropsType = ({
-  handleClickEditTask,
-  handleClickDeleteTask,
-  id,
-}) => {
+export const EditButtons: EditButtonsPropsType = ({ id }) => {
+  const dispatch = useAppDispatch();
+
   return (
     <div className="current-task_edit-container">
       <Fab
         color="primary"
         aria-label="edit"
         size="small"
-        onClick={() => handleClickEditTask(id)}
+        onClick={() => {
+          dispatch(editTask({ id }));
+          dispatch(removeAddTask());
+        }}
       >
         <EditIcon />
       </Fab>
@@ -23,7 +28,7 @@ export const EditButtons: EditButtonsPropsType = ({
         color="primary"
         aria-label="edit"
         size="small"
-        onClick={() => handleClickDeleteTask(id)}
+        onClick={() => dispatch(deleteTask({ id }))}
       >
         <DeleteIcon />
       </Fab>

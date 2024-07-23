@@ -3,7 +3,6 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import { v1 } from "uuid";
 import Tooltip from "@mui/material/Tooltip";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 export const Month = (): JSX.Element => {
   const getCountDays = () => {
@@ -57,7 +56,6 @@ export const Month = (): JSX.Element => {
 
   const data = createData();
   data.unshift(...getIndex());
-  const [monthStat, setMonthStat] = useState(data);
   const getFullMonth = (month: number) => {
     return {
       0: "January",
@@ -78,7 +76,7 @@ export const Month = (): JSX.Element => {
     <div className="month">
       <h2>{getFullMonth(new Date().getMonth())}</h2>
       <div className="month_container">
-        {monthStat.map(([day, weekday, percentage]: number[]) =>
+        {data.map(([day, weekday, percentage]: number[]) =>
           weekday !== -1 ? (
             <div className="month_item" key={v1()}>
               <h3 className="month_day">{day}</h3>

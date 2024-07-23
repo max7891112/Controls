@@ -1,14 +1,12 @@
 import Checkbox from "@mui/material/Checkbox";
 import Tooltip from "@mui/material/Tooltip";
 import { CheckboxListPropsType } from "../../interface/interface";
+import { useAppDispatch } from "../../providers/store/hooks";
+import { completeCheck } from "../../providers/store/controlSlice";
 
-export const CheckboxList: CheckboxListPropsType = ({
-  long,
-  completeCheck,
-  id,
-}) => {
+export const CheckboxList: CheckboxListPropsType = ({ long, id }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
-  console.log(long);
+  const dispatch = useAppDispatch();
   return (
     <div>
       {long.map((_, index) => {
@@ -17,7 +15,7 @@ export const CheckboxList: CheckboxListPropsType = ({
             <Checkbox
               {...label}
               onClick={() => {
-                completeCheck(id, index);
+                dispatch(completeCheck({ id, checkboxIndex: index }));
               }}
             />
           </Tooltip>
