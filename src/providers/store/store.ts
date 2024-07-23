@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import controlReducer from "./controlSlice";
-import addTaskReducer from "./controlAddTaskSlice";
-// import controlTaskReducer from "./controlAddTaskSlice";
+import controlReducer from "./taskSlice";
+import addTaskReducer from "./addTaskSlice";
+import monthReducer from "./monthSlice";
 
 export const store = configureStore({
-  reducer: { tasks: controlReducer, isAddTask: addTaskReducer },
+  reducer: {
+    tasks: controlReducer,
+    isAddTask: addTaskReducer,
+    month: monthReducer,
+  },
 });
 
 export type AppStore = typeof store;

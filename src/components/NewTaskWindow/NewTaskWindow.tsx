@@ -9,8 +9,8 @@ import { useState } from "react";
 import { NewTaskWindowPropsType } from "../../interface/interface";
 import { changeLong, reverseChangeLong } from "../../utils/transformDataLong";
 import { useAppDispatch } from "../../providers/store/hooks";
-import { cancelTask, finishAddTask } from "../../providers/store/controlSlice";
-import { removeAddTask } from "../../providers/store/controlAddTaskSlice";
+import { cancelTask, finishAddTask } from "../../providers/store/taskSlice";
+import { removeAddTask } from "../../providers/store/addTaskSlice";
 
 export const NewTaskWindow: NewTaskWindowPropsType = ({
   title = "",

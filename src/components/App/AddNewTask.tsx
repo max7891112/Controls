@@ -1,10 +1,9 @@
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import { AddNewTaskPropsType } from "../../interface/interface";
 import { useAppDispatch } from "../../providers/store/hooks";
-import { addTask } from "../../providers/store/controlAddTaskSlice";
+import { addTask } from "../../providers/store/addTaskSlice";
 
-export const AddNewTask: AddNewTaskPropsType = () => {
+export const AddNewTask = () => {
   const dispatch = useAppDispatch();
   return (
     <div

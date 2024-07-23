@@ -7,10 +7,12 @@ import "react-circular-progressbar/dist/styles.css";
 import { getPercentage } from "../../utils/transformDataLong";
 import Tooltip from "@mui/material/Tooltip";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../../providers/store/hooks";
+import { useAppDispatch, useAppSelector } from "../../providers/store/hooks";
+import { sendPercantage } from "../../providers/store/monthSlice";
 
 export function App() {
   const tasks = useAppSelector((state) => state.tasks);
+  const dispatch = useAppDispatch();
   const allTaskLong = getPercentage(tasks) ? getPercentage(tasks) : 0;
 
   return (
@@ -35,7 +37,12 @@ export function App() {
           text={`${allTaskLong}%`}
           className="main-progressbar"
         />
-        <Link to="month">
+        <Link
+          to="month"
+          onClick={() => {
+            dispatch(sendPercantage({ percantage: allTaskLong, index: 23 }));
+          }}
+        >
           <Tooltip title="month" placement="bottom">
             <svg
               id="Layer_1"

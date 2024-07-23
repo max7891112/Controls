@@ -4,9 +4,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { EditButtonsPropsType } from "../../interface/interface";
 import { useAppDispatch } from "../../providers/store/hooks";
-import { deleteTask } from "../../providers/store/controlSlice";
-import { editTask } from "../../providers/store/controlSlice";
-import { removeAddTask } from "../../providers/store/controlAddTaskSlice";
+import { deleteTask } from "../../providers/store/taskSlice";
+import { editTask } from "../../providers/store/taskSlice";
 
 export const EditButtons: EditButtonsPropsType = ({ id }) => {
   const dispatch = useAppDispatch();
@@ -19,7 +18,6 @@ export const EditButtons: EditButtonsPropsType = ({ id }) => {
         size="small"
         onClick={() => {
           dispatch(editTask({ id }));
-          dispatch(removeAddTask());
         }}
       >
         <EditIcon />

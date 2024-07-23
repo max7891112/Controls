@@ -25,20 +25,49 @@ export type EditButtonsPropsType = React.FC<{
   id: string;
 }>;
 
-export type AddNewTaskPropsType = React.FC<{
-  // addTask: () => void;
-}>;
-
-export type TaskListPropsType = React.FC<{}>;
-
-export type NewTaskPropsType = React.FC<{
-  // isAddTask: boolean;
-  // addTask: () => void;
-}>;
-
 export type CheckboxListPropsType = React.FC<{
   long: boolean[];
   id: string;
 }>;
 
 export type PercantageType = (tasks: TaskType[]) => number;
+
+export type AddTaskType = {
+  payload: {
+    title: string;
+    description: string;
+    long: boolean[];
+    editMode?: boolean;
+    id?: string;
+  };
+  type: string;
+};
+
+export type EditTaskType = {
+  payload: {
+    id: string;
+  };
+  type: string;
+};
+
+export type CancelTaskType = {
+  payload: {
+    id: string;
+  };
+  type: string;
+};
+
+export type DeleteTaskType = {
+  payload: {
+    id: string;
+  };
+  type: string;
+};
+
+export type CompleteCheckType = {
+  payload: {
+    id: string;
+    checkboxIndex: number;
+  };
+  type: string;
+};

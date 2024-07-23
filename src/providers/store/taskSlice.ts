@@ -1,8 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit/react";
 import { v1 } from "uuid";
 import { RootState } from "./store";
+import {
+  AddTaskType,
+  CancelTaskType,
+  EditTaskType,
+  DeleteTaskType,
+  CompleteCheckType,
+  TaskType,
+} from "../../interface/interface";
 
-const initialState = [
+const initialState: TaskType[] = [
   {
     id: v1(),
     title: "Sport",
@@ -12,11 +20,11 @@ const initialState = [
   },
 ];
 
-const controlSlice = createSlice({
-  name: "control",
+const taskSlice = createSlice({
+  name: "tasks",
   initialState,
   reducers: {
-    finishAddTask(state, action) {
+    finishAddTask(state, action: AddTaskType) {
       if (action.payload.editMode) {
         state = state.map((task) => {
           if (task.id === action.payload.id) {
@@ -45,7 +53,7 @@ const controlSlice = createSlice({
         return state;
       }
     },
-    cancelTask(state, action) {
+    cancelTask(state, action: CancelTaskType) {
       state = state.map((task) => {
         if (task.id === action.payload.id) {
           task.editMode = false;
@@ -54,22 +62,25 @@ const controlSlice = createSlice({
       });
       // return state;
     },
-    editTask(state, action) {
+    editTask(state, action: EditTaskType) {
       state = state.map((task) => {
         if (task.id === action.payload.id) {
           return { ...task, editMode: !task.editMode };
         }
+
         return task;
       });
+      console.log(state[0].long);
+
       return state;
     },
-    deleteTask(state, action) {
+    deleteTask(state, action: DeleteTaskType) {
       state = state.filter((task) => {
         return task.id !== action.payload.id;
       });
       return state;
     },
-    completeCheck(state, action) {
+    completeCheck(state, action: CompleteCheckType) {
       state = state.map((task) => {
         if (task.id === action.payload.id) {
           return {
@@ -92,8 +103,8 @@ export const {
   editTask,
   deleteTask,
   completeCheck,
-} = controlSlice.actions;
+} = taskSlice.actions;
 
 export const selectCount = (state: RootState) => state.tasks;
 
-export default controlSlice.reducer;
+export default taskSlice.reducer;
