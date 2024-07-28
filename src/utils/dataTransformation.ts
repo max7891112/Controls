@@ -1,9 +1,9 @@
-const getCountDays = () => {
+export const getCountDays = () => {
   const now = new Date();
   const currentMonth = now.getMonth();
   const currentYear = now.getFullYear();
-  const date1 = new Date(currentYear, currentMonth, 1);
-  const date2 = new Date(currentYear, currentMonth + 1, 1);
+  const date1 = new Date(currentYear, currentMonth + 1, 1);
+  const date2 = new Date(currentYear, currentMonth + 2, 1);
 
   const countDays = Math.ceil(
     (date2.getTime() - date1.getTime()) / 1000 / 3600 / 24
@@ -11,28 +11,28 @@ const getCountDays = () => {
   return countDays;
 };
 
-const getFirstDay = () => {
+export const getWeekday = (index: number = 0) => {
   const now = new Date();
   const currentMonth = now.getMonth();
   const currentYear = now.getFullYear();
-  const date1 = new Date(currentYear, currentMonth, 1);
-  return date1.getDay();
+  const date = new Date(currentYear, currentMonth + index, 1);
+  return date.getDay();
 };
 
 const getIndexDay = (i: number) => {
-  return getFirstDay() + i - 1 > 6
-    ? (getFirstDay() + i - 1) % 7
-    : getFirstDay() + i - 1;
+  return getWeekday() + i - 1 > 6
+    ? (getWeekday() + i - 1) % 7
+    : getWeekday() + i - 1;
 };
 
 export const getIndex = () => {
   const arr = [];
-  if (getFirstDay() > 1) {
-    for (let i = 1; i < getFirstDay(); i++) {
+  if (getWeekday() > 1) {
+    for (let i = 1; i < getWeekday(); i++) {
       arr.push([0, -1, 0]);
     }
   }
-  if (getFirstDay() === 0) {
+  if (getWeekday() === 0) {
     for (let i = 0; i < 6; i++) {
       arr.push([0, -1, 0]);
     }
@@ -63,6 +63,20 @@ export const getFullMonth = (month: number) => {
     10: "November",
     11: "December",
   }[month];
+};
+
+export const getOffsetWeekday = () => {
+  return (
+    {
+      0: 6,
+      1: 0,
+      2: 1,
+      3: 2,
+      4: 3,
+      5: 4,
+      6: 5,
+    }[getWeekday()] || 0
+  );
 };
 
 export const data = createData();

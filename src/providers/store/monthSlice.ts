@@ -1,11 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit/react";
-import { RootState } from "./store";
+// import { RootState } from "./store";
 import { getIndex, data } from "../../utils/dataTransformation";
 
 data.unshift(...getIndex());
+const getMonthData = () => {
+  const monthDataStr = localStorage.getItem("monthData");
+  const monthData: number[][] = monthDataStr ? JSON.parse(monthDataStr) : [];
+  // console.log(monthData);
+  return monthData;
+};
 
-const initialState = data;
-
+const initialState = getMonthData();
 type sendPercantageType = {
   payload: {
     percantage: number;
@@ -31,5 +36,5 @@ const monthSlice = createSlice({
 });
 
 export const { sendPercantage } = monthSlice.actions;
-export const selectCount = (state: RootState) => state.tasks;
+// export const selectCount = (state: RootState) => state.tasks;
 export default monthSlice.reducer;

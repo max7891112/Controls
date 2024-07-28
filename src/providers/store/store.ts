@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import controlReducer from "./taskSlice";
 import addTaskReducer from "./addTaskSlice";
 import monthReducer from "./monthSlice";
+import newDayReducer from "./newDaySlice";
 
 export const store = configureStore({
   reducer: {
     tasks: controlReducer,
     isAddTask: addTaskReducer,
     month: monthReducer,
+    newDay: newDayReducer,
   },
 });
 

@@ -24,7 +24,6 @@ export const NewTaskWindow: NewTaskWindowPropsType = ({
     description: editMode ? description : "",
     long: editMode ? long : [],
   });
-
   const dispatch = useAppDispatch();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +82,6 @@ export const NewTaskWindow: NewTaskWindowPropsType = ({
             startIcon={<DeleteIcon />}
             onClick={() => {
               dispatch(removeAddTask());
-
               dispatch(cancelTask({ id }));
             }}
           >

@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit/react";
 import { v1 } from "uuid";
-import { RootState } from "./store";
 import {
   AddTaskType,
   CancelTaskType,
@@ -10,15 +9,10 @@ import {
   TaskType,
 } from "../../interface/interface";
 
-const initialState: TaskType[] = [
-  {
-    id: v1(),
-    title: "Sport",
-    description: "Run",
-    long: [false, false],
-    editMode: false,
-  },
-];
+const tasksStr = localStorage.getItem("tasks");
+const tasks = tasksStr ? JSON.parse(tasksStr) : [];
+
+const initialState: TaskType[] = tasks;
 
 const taskSlice = createSlice({
   name: "tasks",
@@ -62,6 +56,18 @@ const taskSlice = createSlice({
       });
       // return state;
     },
+
+    cancelAllTask(state) {
+      state = state.map((task) => {
+        task.editMode = false;
+        task.long = task.long.map((item) => {
+          item = false;
+          return item;
+        });
+        return task;
+      });
+      // return state;
+    },
     editTask(state, action: EditTaskType) {
       state = state.map((task) => {
         if (task.id === action.payload.id) {
@@ -95,16 +101,20 @@ const taskSlice = createSlice({
       return state;
     },
   },
+  // extraReducers:(builder) => {
+  //   builder.addCase(finishAddTask,(state, action) => {
+
+  //   })
+  // },
 });
 
 export const {
   finishAddTask,
   cancelTask,
+  cancelAllTask,
   editTask,
   deleteTask,
   completeCheck,
 } = taskSlice.actions;
-
-export const selectCount = (state: RootState) => state.tasks;
 
 export default taskSlice.reducer;

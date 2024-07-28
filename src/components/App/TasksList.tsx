@@ -1,8 +1,10 @@
 import { useAppSelector } from "../../providers/store/hooks";
 import { Task } from "../Task/Task";
 import { NewTaskWindow } from "../NewTaskWindow/NewTaskWindow";
+
 export const TasksList = () => {
   const tasks = useAppSelector((state) => state.tasks);
+
   return (
     <>
       {tasks.map((task) => {

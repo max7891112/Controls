@@ -5,15 +5,39 @@ import { NewTask } from "./NewTask";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { getPercentage } from "../../utils/transformDataLong";
-import Tooltip from "@mui/material/Tooltip";
-import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../providers/store/hooks";
+import { useAppSelector } from "../../providers/store/hooks";
+import { Arrow } from "../../ui/Arrow";
+import { useEffect } from "react";
 import { sendPercantage } from "../../providers/store/monthSlice";
+import { getOffsetWeekday } from "../../utils/dataTransformation";
+import { RootState } from "../../providers/store/store";
+import { useAppDispatch } from "../../providers/store/hooks";
 
 export function App() {
   const tasks = useAppSelector((state) => state.tasks);
+  const monthData = useAppSelector((state) => state.month);
+  const percantage = getPercentage(tasks) ? getPercentage(tasks) : 0;
+
+  useEffect(() => {
+    const onUnload = () => {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      localStorage.setItem("monthData", JSON.stringify(monthData));
+    };
+    window.addEventListener("beforeunload", onUnload);
+    return () => window.removeEventListener("beforeunload", onUnload);
+  }, [tasks, monthData]);
+
+  const countDay = useAppSelector((state: RootState) => state.newDay);
   const dispatch = useAppDispatch();
-  const allTaskLong = getPercentage(tasks) ? getPercentage(tasks) : 0;
+
+  useEffect(() => {
+    dispatch(
+      sendPercantage({
+        index: countDay + getOffsetWeekday(),
+        percantage: percantage,
+      })
+    );
+  }, [percantage]);
 
   return (
     <div className="container">
@@ -33,27 +57,11 @@ export function App() {
       </div>
       <div className="footer">
         <CircularProgressbar
-          value={allTaskLong}
-          text={`${allTaskLong}%`}
+          value={percantage}
+          text={`${percantage}%`}
           className="main-progressbar"
         />
-        <Link
-          to="month"
-          onClick={() => {
-            dispatch(sendPercantage({ percantage: allTaskLong, index: 23 }));
-          }}
-        >
-          <Tooltip title="month" placement="bottom">
-            <svg
-              id="Layer_1"
-              viewBox="0 0 100 100"
-              data-name="Layer 1"
-              className="main-svg"
-            >
-              <path d="m99.12 47.88-26.87-26.88a3 3 0 1 0 -4.25 4.25l21.76 21.75h-86.76a3 3 0 0 0 0 6h86.76l-21.76 21.75a3 3 0 1 0 4.25 4.25l26.87-26.88a3 3 0 0 0 0-4.24z"></path>
-            </svg>
-          </Tooltip>
-        </Link>
+        <Arrow className="main-svg" way="month" />
       </div>
     </div>
   );
