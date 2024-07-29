@@ -12,6 +12,8 @@ import { sendPercantage } from "../../providers/store/monthSlice";
 import { getOffsetWeekday } from "../../utils/dataTransformation";
 import { RootState } from "../../providers/store/store";
 import { useAppDispatch } from "../../providers/store/hooks";
+import { increment } from "../../providers/store/newDaySlice";
+import { cancelAllTask } from "../../providers/store/taskSlice";
 
 export function App() {
   const tasks = useAppSelector((state) => state.tasks);
@@ -38,6 +40,14 @@ export function App() {
       })
     );
   }, [percantage]);
+
+  useEffect(() => {
+    if (localStorage.getItem("today") !== new Date().getDate().toString()) {
+      localStorage.setItem("today", new Date().getDate().toString());
+      dispatch(increment());
+      dispatch(cancelAllTask());
+    }
+  }, []);
 
   return (
     <div className="container">

@@ -101,11 +101,6 @@ const taskSlice = createSlice({
       return state;
     },
   },
-  // extraReducers:(builder) => {
-  //   builder.addCase(finishAddTask,(state, action) => {
-
-  //   })
-  // },
 });
 
 export const {
