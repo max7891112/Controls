@@ -71,3 +71,22 @@ export type CompleteCheckType = {
   };
   type: string;
 };
+
+export type selectorType = "today" | "month" | "year" | "life";
+
+export type sendPercantageLifeType = {
+  payload: {
+    percantage: number;
+    index: number;
+    birthday: number;
+  };
+  type: string;
+};
+
+export type sendPercantageType = {
+  payload: {
+    percantage: number;
+    index: number;
+  };
+  type: string;
+};

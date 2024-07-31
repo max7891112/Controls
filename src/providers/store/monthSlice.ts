@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit/react";
-import { getIndex, data } from "../../utils/dataTransformation";
+import { getIndex, data } from "../../utils/dataMonthTransformation";
+import { sendPercantageType } from "../../interface/interface";
 
 data.unshift(...getIndex());
 const getMonthData = () => {
@@ -9,13 +10,6 @@ const getMonthData = () => {
 };
 
 const initialState = getMonthData();
-type sendPercantageType = {
-  payload: {
-    percantage: number;
-    index: number;
-  };
-  type: string;
-};
 
 const monthSlice = createSlice({
   name: "month",

@@ -2,8 +2,8 @@ export const getCountDays = () => {
   const now = new Date();
   const currentMonth = now.getMonth();
   const currentYear = now.getFullYear();
-  const date1 = new Date(currentYear, currentMonth + 1, 1);
-  const date2 = new Date(currentYear, currentMonth + 2, 1);
+  const date1 = new Date(currentYear, currentMonth, 1);
+  const date2 = new Date(currentYear, currentMonth + 1, 1);
 
   const countDays = Math.ceil(
     (date2.getTime() - date1.getTime()) / 1000 / 3600 / 24

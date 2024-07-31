@@ -1,53 +1,82 @@
 import "./App.scss";
 import { Avatar } from "@mui/material";
 import { TasksList } from "../App/TasksList";
-import { NewTask } from "./NewTask";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { getPercentage } from "../../utils/transformDataLong";
-import { useAppSelector } from "../../providers/store/hooks";
-import { Arrow } from "../../ui/Arrow";
 import { useEffect } from "react";
 import { sendPercantage } from "../../providers/store/monthSlice";
-import { getOffsetWeekday } from "../../utils/dataTransformation";
-import { RootState } from "../../providers/store/store";
-import { useAppDispatch } from "../../providers/store/hooks";
-import { increment } from "../../providers/store/newDaySlice";
+import { getOffsetWeekday } from "../../utils/dataMonthTransformation";
+import { useAppDispatch, useSaveStorage } from "../../providers/store/hooks";
+import {
+  incrementDay,
+  incrementMonth,
+  incrementYear,
+} from "../../providers/store/currentDataSlice";
 import { cancelAllTask } from "../../providers/store/taskSlice";
+import { sendPercantageYear } from "../../providers/store/yearSlice";
+import { summaryPersantageMonth } from "../../utils/dataYearTransformation";
+import { NewTaskWindow } from "../NewTaskWindow/NewTaskWindow";
+import { AddNewTask } from "./AddNewTask";
+import { useAppSelector } from "../../providers/store/hooks";
+import { NavigationArrow } from "../../ui/NavigationArrow";
+import { summaryPersantageYear } from "../../utils/dataLifeTransformation";
+import { sendPercantageLife } from "../../providers/store/lifeSlice";
 
 export function App() {
   const tasks = useAppSelector((state) => state.tasks);
-  const monthData = useAppSelector((state) => state.month);
+  const currentData = useAppSelector((state) => state.currentData);
+  const month = useAppSelector((state) => state.month);
+  const year = useAppSelector((state) => state.year);
+  const isAddTask = useAppSelector((state) => state.isAddTask.isAddTask);
   const percantage = getPercentage(tasks) ? getPercentage(tasks) : 0;
-
-  useEffect(() => {
-    const onUnload = () => {
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-      localStorage.setItem("monthData", JSON.stringify(monthData));
-    };
-    window.addEventListener("beforeunload", onUnload);
-    return () => window.removeEventListener("beforeunload", onUnload);
-  }, [tasks, monthData]);
-
-  const countDay = useAppSelector((state: RootState) => state.newDay);
   const dispatch = useAppDispatch();
+
+  // send persantage to month and year
 
   useEffect(() => {
     dispatch(
       sendPercantage({
-        index: countDay + getOffsetWeekday(),
+        index: currentData.day + getOffsetWeekday(),
         percantage: percantage,
       })
     );
-  }, [percantage]);
+    dispatch(
+      sendPercantageYear({
+        index: currentData.month,
+        percantage: summaryPersantageMonth(month),
+      })
+    );
+    dispatch(
+      sendPercantageLife({
+        index: currentData.year,
+        percantage: summaryPersantageYear(year),
+        birthday: 1998,
+      })
+    );
+  }, [percantage, summaryPersantageMonth(month), summaryPersantageYear(year)]);
+
+  // record today and month current data in localStorage
 
   useEffect(() => {
     if (localStorage.getItem("today") !== new Date().getDate().toString()) {
       localStorage.setItem("today", new Date().getDate().toString());
-      dispatch(increment());
+      dispatch(incrementDay());
+      dispatch(cancelAllTask());
+    }
+    if (localStorage.getItem("month") !== new Date().getMonth().toString()) {
+      localStorage.setItem("month", new Date().getMonth().toString());
+      dispatch(incrementMonth());
+      dispatch(cancelAllTask());
+    }
+    if (localStorage.getItem("year") !== new Date().getFullYear().toString()) {
+      localStorage.setItem("year", new Date().getFullYear().toString());
+      dispatch(incrementYear());
       dispatch(cancelAllTask());
     }
   }, []);
+
+  useSaveStorage();
 
   return (
     <div className="container">
@@ -62,7 +91,7 @@ export function App() {
         <div className="main-container">
           <h2 className="main-today">Today</h2>
           <TasksList />
-          <NewTask />
+          {isAddTask ? <NewTaskWindow /> : <AddNewTask />}
         </div>
       </div>
       <div className="footer">
@@ -71,7 +100,7 @@ export function App() {
           text={`${percantage}%`}
           className="main-progressbar"
         />
-        <Arrow className="main-svg" way="month" />
+        <NavigationArrow selector="today" />
       </div>
     </div>
   );

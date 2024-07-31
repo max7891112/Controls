@@ -39,13 +39,30 @@
   height: 70px;
   position: absolute;
   top: 150px;
-  left: 4%;
   fill: #1976d2;
   cursor: pointer;
   transition: all .3s ease;
-  rotate: 180deg;
 }
-.month-svg:hover{
+.month-svg-left:hover{
     fill: #1565c0;
     left: 3%;
+  }
+
+  .month-svg-left{
+  left: 4%;
+  rotate: 180deg;
+}
+
+.month-svg-left{
+    left: 4%;
+    rotate: 180deg;
+  }
+
+  .month-svg-right{
+    right: 4%;  
+}
+
+.month-svg-right:hover{
+    fill: #1565c0;
+    right: 3%;
   }
