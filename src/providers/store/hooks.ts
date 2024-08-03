@@ -11,7 +11,6 @@ export const useSaveStorage = () => {
   const monthData = useAppSelector((state) => state.month);
   const yearData = useAppSelector((state) => state.year);
   const lifeData = useAppSelector((state) => state.life);
-
   useEffect(() => {
     const onUnload = () => {
       localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -21,5 +20,5 @@ export const useSaveStorage = () => {
     };
     window.addEventListener("beforeunload", onUnload);
     return () => window.removeEventListener("beforeunload", onUnload);
-  }, [tasks, monthData]);
+  }, [tasks, monthData, yearData, lifeData]);
 };

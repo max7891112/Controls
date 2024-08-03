@@ -1,6 +1,6 @@
 import { PercantageType } from "../interface/interface";
 export function changeLong(str: string) {
-  let arr = [];
+  const arr = [];
   for (let i = 0; i < +str.trim(); i++) {
     arr.push(false);
   }

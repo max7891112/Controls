@@ -54,7 +54,14 @@ export function App() {
         birthday: 1998,
       })
     );
-  }, [percantage, summaryPersantageMonth(month), summaryPersantageYear(year)]);
+  }, [
+    percantage,
+    summaryPersantageMonth(month),
+    summaryPersantageYear(year),
+    currentData.day,
+    currentData.month,
+    currentData.year,
+  ]);
 
   // record today and month current data in localStorage
 
