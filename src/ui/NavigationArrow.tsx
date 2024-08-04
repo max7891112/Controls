@@ -5,27 +5,27 @@ import { selectorType } from "../interface/interface";
 const getTypeNav = (selector: selectorType) => {
   return {
     today: {
-      leftWay: "/life",
+      leftWay: "/controls/life",
       leftTooltip: "Life",
-      rightWay: "/month",
+      rightWay: "/controls/month",
       rightTooltip: "Month",
     },
     month: {
-      leftWay: "/",
+      leftWay: "/controls",
       leftTooltip: "Today",
-      rightWay: "/year",
+      rightWay: "/controls/year",
       rightTooltip: "Year",
     },
     year: {
-      leftWay: "/month",
+      leftWay: "/controls/month",
       leftTooltip: "Month",
-      rightWay: "/life",
+      rightWay: "/controls/life",
       rightTooltip: "Life",
     },
     life: {
-      leftWay: "/year",
+      leftWay: "/controls/year",
       leftTooltip: "Year",
-      rightWay: "/",
+      rightWay: "/controls",
       rightTooltip: "Today",
     },
   }[selector];

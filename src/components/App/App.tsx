@@ -66,17 +66,26 @@ export function App() {
   // record today and month current data in localStorage
 
   useEffect(() => {
-    if (localStorage.getItem("today") !== new Date().getDate().toString()) {
+    if (
+      localStorage.getItem("today") !== new Date().getDate().toString() &&
+      localStorage.getItem("today") !== null
+    ) {
       localStorage.setItem("today", new Date().getDate().toString());
       dispatch(incrementDay());
       dispatch(cancelAllTask());
     }
-    if (localStorage.getItem("month") !== new Date().getMonth().toString()) {
+    if (
+      localStorage.getItem("month") !== new Date().getMonth().toString() &&
+      localStorage.getItem("month") !== null
+    ) {
       localStorage.setItem("month", new Date().getMonth().toString());
       dispatch(incrementMonth());
       dispatch(cancelAllTask());
     }
-    if (localStorage.getItem("year") !== new Date().getFullYear().toString()) {
+    if (
+      localStorage.getItem("year") !== new Date().getFullYear().toString() &&
+      localStorage.getItem("year") !== null
+    ) {
       localStorage.setItem("year", new Date().getFullYear().toString());
       dispatch(incrementYear());
       dispatch(cancelAllTask());

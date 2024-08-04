@@ -10,6 +10,6 @@ export const summaryPersantageYear = (yearData: number[][]) => {
   const summaryPersantage = yearData.reduce((acc, val) => {
     return acc + val[1];
   }, 0);
-  const yearPercantage = summaryPersantage / yearData.length;
+  const yearPercantage = Math.ceil(summaryPersantage / yearData.length);
   return yearPercantage;
 };
