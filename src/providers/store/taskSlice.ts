@@ -66,7 +66,7 @@ const taskSlice = createSlice({
         });
         return task;
       });
-      return state;
+      // return state;
       // ?
     },
     editTask(state, action: EditTaskType) {
