@@ -90,3 +90,18 @@ export type sendPercantageType = {
   };
   type: string;
 };
+
+export type userActionType = {
+  type: string;
+  payload: {
+    email: string | null;
+    token: string;
+    id: string;
+  };
+};
+
+export type userStateType = {
+  email: string | null;
+  token: string;
+  id: string;
+};

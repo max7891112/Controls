@@ -5,25 +5,29 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { getPercentage } from "../../utils/transformDataLong";
 import { useEffect } from "react";
-import { sendPercantage } from "../../providers/store/monthSlice";
+import { sendPercantage } from "../../providers/store/slices/monthSlice";
 import { getOffsetWeekday } from "../../utils/dataMonthTransformation";
 import { useAppDispatch, useSaveStorage } from "../../providers/store/hooks";
 import {
   incrementDay,
   incrementMonth,
   incrementYear,
-} from "../../providers/store/currentDataSlice";
-import { cancelAllTask } from "../../providers/store/taskSlice";
-import { sendPercantageYear } from "../../providers/store/yearSlice";
+} from "../../providers/store/slices/currentDataSlice";
+import { cancelAllTask } from "../../providers/store/slices/taskSlice";
+import { sendPercantageYear } from "../../providers/store/slices/yearSlice";
 import { summaryPersantageMonth } from "../../utils/dataYearTransformation";
 import { NewTaskWindow } from "../NewTaskWindow/NewTaskWindow";
 import { AddNewTask } from "./AddNewTask";
 import { useAppSelector } from "../../providers/store/hooks";
 import { NavigationArrow } from "../../ui/NavigationArrow";
 import { summaryPersantageYear } from "../../utils/dataLifeTransformation";
-import { sendPercantageLife } from "../../providers/store/lifeSlice";
+import { sendPercantageLife } from "../../providers/store/slices/lifeSlice";
+import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import { removeUser } from "../../providers/store/slices/userSlice";
 
 export function App() {
+  const navigate = useNavigate();
   const tasks = useAppSelector((state) => state.tasks);
   const currentData = useAppSelector((state) => state.currentData);
   const month = useAppSelector((state) => state.month);

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit/react";
-import { createDataYear } from "../../utils/dataYearTransformation";
-import { sendPercantageType } from "../../interface/interface";
+import { createDataYear } from "../../../utils/dataYearTransformation";
+import { sendPercantageType } from "../../../interface/interface";
 
 const getYearData = () => {
   const yearDataStr = localStorage.getItem("yearData");

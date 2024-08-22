@@ -2,7 +2,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Tooltip from "@mui/material/Tooltip";
 import { CheckboxListPropsType } from "../../interface/interface";
 import { useAppDispatch } from "../../providers/store/hooks";
-import { completeCheck } from "../../providers/store/taskSlice";
+import { completeCheck } from "../../providers/store/slices/taskSlice";
 export const CheckboxList: CheckboxListPropsType = ({ long, id }) => {
   const dispatch = useAppDispatch();
   return (

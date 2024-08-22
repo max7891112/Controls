@@ -17,11 +17,15 @@
     font-size: 32px;
     color: rgb(9, 122, 122);}
   &_logo-container{
-    margin-right: 50px;}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 30px;
+  }
   
   &_logo-name{
     font-size: 22px;
-    padding-top: 5px;
+    padding: 5px 0;
   }
 }
 .main {

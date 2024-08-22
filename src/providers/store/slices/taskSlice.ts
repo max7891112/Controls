@@ -7,7 +7,7 @@ import {
   DeleteTaskType,
   CompleteCheckType,
   TaskType,
-} from "../../interface/interface";
+} from "../../../interface/interface";
 
 const tasksStr = localStorage.getItem("tasks");
 const tasks = tasksStr ? JSON.parse(tasksStr) : [];

@@ -22,3 +22,13 @@ export const useSaveStorage = () => {
     return () => window.removeEventListener("beforeunload", onUnload);
   }, [tasks, monthData, yearData, lifeData]);
 };
+
+export const useAuth = () => {
+  const { email, token, id } = useAppSelector((state) => state.userData);
+  return {
+    isAuth: !!email,
+    email,
+    token,
+    id,
+  };
+};

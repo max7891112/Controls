@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit/react";
-import { createDataLife } from "../../utils/dataLifeTransformation";
-import { sendPercantageLifeType } from "../../interface/interface";
+import { createDataLife } from "../../../utils/dataLifeTransformation";
+import { sendPercantageLifeType } from "../../../interface/interface";
 
 const getLifeData = (birthday: number) => {
   const lifeDataStr = localStorage.getItem("lifeData");

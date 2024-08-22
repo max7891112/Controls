@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit/react";
-import { getCountDays } from "../../utils/dataMonthTransformation";
+import { getCountDays } from "../../../utils/dataMonthTransformation";
 
 const initialState = {
   day: new Date().getDate(),

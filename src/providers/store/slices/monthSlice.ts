@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit/react";
-import { getIndex, data } from "../../utils/dataMonthTransformation";
-import { sendPercantageType } from "../../interface/interface";
+import { getIndex, data } from "../../../utils/dataMonthTransformation";
+import { sendPercantageType } from "../../../interface/interface";
 
 data.unshift(...getIndex());
 const getMonthData = () => {

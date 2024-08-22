@@ -9,6 +9,7 @@ import { ProviderRouter } from "./providers/Provider.tsx";
 import "./style/null.scss";
 import { Provider } from "react-redux";
 import { store } from "./providers/store/store.ts";
+import "./firebase.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>

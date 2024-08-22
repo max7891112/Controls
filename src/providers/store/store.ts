@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import controlReducer from "./taskSlice";
-import addTaskReducer from "./addTaskSlice";
-import monthReducer from "./monthSlice";
-import currentDataReducer from "./currentDataSlice";
-import yearReducer from "./yearSlice";
-import lifeReducer from "./lifeSlice";
+import controlReducer from "./slices/taskSlice";
+import addTaskReducer from "./slices/addTaskSlice";
+import monthReducer from "./slices/monthSlice";
+import currentDataReducer from "./slices/currentDataSlice";
+import yearReducer from "./slices/yearSlice";
+import lifeReducer from "./slices/lifeSlice";
+import userReducer from "./slices/userSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     year: yearReducer,
     life: lifeReducer,
     currentData: currentDataReducer,
+    userData: userReducer,
   },
 });
 
