@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit/react";
-import { getCountDays } from "../../../utils/dataMonthTransformation";
 
 const initialState = {
   day: new Date().getDate(),
@@ -11,31 +10,20 @@ const currentData = createSlice({
   name: "currentData",
   initialState,
   reducers: {
-    incrementDay(state) {
-      if (state.day < getCountDays()) {
-        state.day = state.day + 1;
-        return state;
-      } else {
-        state.day = 1;
-        return state;
-      }
+    updateDay(state) {
+      state.day = new Date().getDate();
+      return state;
     },
-    incrementMonth(state) {
-      if (state.month < 12) {
-        state.month = state.month + 1;
-        return state;
-      } else {
-        state.month = 0;
-        return state;
-      }
+    updateMonth(state) {
+      state.month = new Date().getMonth();
+      return state;
     },
-    incrementYear(state) {
-      state.year = state.year + 1;
+    updateYear(state) {
+      state.year = new Date().getFullYear();
       return state;
     },
   },
 });
 
-export const { incrementDay, incrementMonth, incrementYear } =
-  currentData.actions;
+export const { updateDay, updateMonth, updateYear } = currentData.actions;
 export default currentData.reducer;
