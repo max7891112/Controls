@@ -38,36 +38,14 @@ export const useSaveStorage = () => {
 export const useUpdateStorage = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (
-      localStorage.getItem("today") !== new Date().getDate().toString() &&
-      localStorage.getItem("today") !== null
-    ) {
-      localStorage.setItem("today", new Date().getDate().toString());
-      dispatch(updateDay());
-    }
-    if (localStorage.getItem("today") === null) {
-      localStorage.setItem("today", new Date().getDate().toString());
-    }
-    if (
-      localStorage.getItem("month") !== new Date().getMonth().toString() &&
-      localStorage.getItem("month") !== null
-    ) {
-      localStorage.setItem("month", new Date().getMonth().toString());
-      dispatch(updateMonth());
-    }
-    if (localStorage.getItem("month") === null) {
-      localStorage.setItem("month", new Date().getDate().toString());
-    }
-    if (
-      localStorage.getItem("year") !== new Date().getFullYear().toString() &&
-      localStorage.getItem("year") !== null
-    ) {
-      localStorage.setItem("year", new Date().getFullYear().toString());
-      dispatch(updateYear());
-    }
-    if (localStorage.getItem("year") === null) {
-      localStorage.setItem("year", new Date().getDate().toString());
-    }
+    localStorage.setItem("today", new Date().getDate().toString());
+    dispatch(updateDay());
+
+    localStorage.setItem("month", new Date().getMonth().toString());
+    dispatch(updateMonth());
+
+    localStorage.setItem("year", new Date().getFullYear().toString());
+    dispatch(updateYear());
   }, []);
 };
 

@@ -56,7 +56,6 @@ const taskSlice = createSlice({
       });
       // return state;
     },
-
     cancelAllTask(state) {
       state = state.map((task) => {
         task.editMode = false;
